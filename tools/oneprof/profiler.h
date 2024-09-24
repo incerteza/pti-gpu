@@ -316,7 +316,7 @@ class Profiler {
         options_.GetMetricGroup(),
         device_props_list_,
         kernel_name_list,
-        kernel_interval_list};
+        std::move(kernel_interval_list)};
 
     storage->Dump(&data);
 
