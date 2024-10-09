@@ -315,7 +315,7 @@ class Profiler {
         correlator_.GetTimestamp(),
         options_.GetMetricGroup(),
         device_props_list_,
-        kernel_name_list,
+        std::move(kernel_name_list),
         kernel_interval_list};
 
     storage->Dump(&data);
