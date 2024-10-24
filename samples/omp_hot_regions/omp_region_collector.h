@@ -79,7 +79,8 @@ class OmpRegionCollector {
   }
 
   const RegionMap& GetRegionMap() const {
-    return region_map_;
+  std::lock_guard<std::mutex> lock(lock_);
+  return region_map_;
   }
 
   static void PrintRegionTable(const RegionMap& region_map) {
