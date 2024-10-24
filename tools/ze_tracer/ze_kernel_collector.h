@@ -970,7 +970,7 @@ class ZeKernelCollector {
       PTI_ASSERT(count <= device_map_[command->device].size());
 
       ZeKernelInterval kernel_interval{
-          name, command->device, std::vector<ZeDeviceInterval>()};
+          std::move(name), command->device, std::vector<ZeDeviceInterval>()};
       for (uint32_t i = 0; i < count; ++i) {
         ze_device_handle_t sub_device = device_map_[command->device][i];
 
@@ -998,14 +998,14 @@ class ZeKernelCollector {
         PTI_ASSERT(sub_device_id >= 0);
 
         ZeKernelInterval kernel_interval{
-            name, device, std::vector<ZeDeviceInterval>()};
+            std::move(name), device, std::vector<ZeDeviceInterval>()};
         kernel_interval.device_interval_list.push_back(
             {host_start, host_end, static_cast<uint32_t>(sub_device_id)});
         kernel_interval_list_.push_back(kernel_interval);
       } else { // Device with no subdevices
         PTI_ASSERT(device_map_[command->device].empty());
         ZeKernelInterval kernel_interval{
-            name, command->device, std::vector<ZeDeviceInterval>()};
+            std::move(name), command->device, std::vector<ZeDeviceInterval>()};
         kernel_interval.device_interval_list.push_back(
             {host_start, host_end, 0});
         kernel_interval_list_.push_back(kernel_interval);
